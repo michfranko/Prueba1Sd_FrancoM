@@ -1,0 +1,36 @@
+
+services:
+  node-a:
+    build:
+      context: node_a
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Expone el puerto 8080 al host para el disparo inicial
+    networks:
+      security-net:
+        aliases:
+          - node-a
+
+  node-b:
+    build:
+      context: node_b
+      dockerfile: Dockerfile
+    networks:
+      security-net:
+        aliases:
+          - node-b
+    # No expone puertos al host
+
+  node-c:
+    build:
+      context: node_c
+      dockerfile: Dockerfile
+    networks:
+      security-net:
+        aliases:
+          - node-c
+    # No expone puertos al host
+
+networks:
+  security-net:
+    driver: bridge
